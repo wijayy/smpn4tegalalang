@@ -25,12 +25,14 @@
                     wire:navigate>{{ __('Guru') }}</flux:navlist.item>
                 <flux:navlist.item icon="home" :href="route('kelas.index')" :current="request()->routeIs('kelas.index')"
                     wire:navigate>{{ __('Kelas') }}</flux:navlist.item>
-                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                <flux:navlist.item icon="home" :href="route('mapel.index')" :current="request()->routeIs('mapel.index')"
                     wire:navigate>{{ __('Mata Pelajaran') }}</flux:navlist.item>
-                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                <flux:navlist.item icon="home" :href="route('jadwal.index')" :current="request()->routeIs('jadwal.index')"
                     wire:navigate>{{ __('Jadwal Pelajaran') }}</flux:navlist.item>
-                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                <flux:navlist.item icon="home" :href="route('prestasi.index')" :current="request()->routeIs('prestasi.index')"
                     wire:navigate>{{ __('Prestasi Siswa') }}</flux:navlist.item>
+                <flux:navlist.item icon="settings-2" :href="route('setting.index')" :current="request()->routeIs('setting.index')"
+                    wire:navigate>{{ __('Konfigurasi') }}</flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
 
@@ -82,7 +84,7 @@
     </flux:sidebar>
 
     <!-- Mobile User Menu -->
-    <flux:header class="lg:hidden">
+    <flux:header class="lg:hidden border-b border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900">
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
         <flux:spacer />

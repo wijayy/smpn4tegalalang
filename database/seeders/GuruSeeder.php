@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Guru;
 use App\Models\Mapel;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -33,9 +34,15 @@ class GuruSeeder extends Seeder
         foreach ($mapelList as $mapelName => $jam) {
             $mapel = Mapel::where('nama', $mapelName)->first();
 
+
+
             if ($mapel) {
-                Guru::factory()->create([
-                    'nama' => "Guru {$mapelName} {$counter}",
+                $user = User::factory()->create([
+                    'name' => "Guru {$mapelName} {$counter}",
+                    'email' => "guru$counter@gmail.com",
+                    'role' => 'guru'
+                ]);
+                Guru::factory()->recycle($user)->create([
                     'mapel_id' => $mapel->id,
                     // 'total_jam_mingguan' => $jam,
                 ]);

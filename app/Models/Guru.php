@@ -21,7 +21,7 @@ class Guru extends Model
     {
         return [
             'slug' => [
-                'source' => 'nama',
+                'source' => 'name',
                 'onUpdate' => true
             ]
         ];
@@ -36,21 +36,25 @@ class Guru extends Model
     }
     protected $guarded = ['id'];
 
-    public function scopeFilters(Builder  $query, array $filters) {
+    public function scopeFilters(Builder $query, array $filters)
+    {
         $query->when($filters["search"] ?? false, function ($query, $search) {
             return $query->where("name", "like", "%$search%");
         });
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function mapel() {
+    public function mapel()
+    {
         return $this->belongsTo(Mapel::class);
     }
 
-    public function kelas() {
+    public function kelas()
+    {
         return $this->hasMany(Kelas::class);
     }
 }

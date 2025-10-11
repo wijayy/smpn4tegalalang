@@ -24,8 +24,15 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('guru', 'guru-index')->name('guru.index');
 
     Volt::route('kelas', 'kelas-index')->name('kelas.index');
-    
+
+    Volt::route('mapel', 'mapel-index')->name('mapel.index');
+
+    Volt::route('jadwal', 'jadwal-index')->name('jadwal.index');
+
     Volt::route('siswa', 'siswa-index')->name('siswa.index');
+    Volt::route('siswa/prestasi', 'prestasi-index')->name('prestasi.index');
+
+    Volt::route('setting', 'setting-index')->name('setting.index');
 
 });
 

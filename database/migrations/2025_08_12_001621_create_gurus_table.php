@@ -13,7 +13,7 @@ return new class extends Migration {
     {
         Schema::create('gurus', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 100);
+            // $table->string('nama', 100);
             $table->string('kode', 100);
             $table->string('slug', 100);
             $table->foreignIdFor(User::class)->nullable()->constrained()->onDelete('set null');

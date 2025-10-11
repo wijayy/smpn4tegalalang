@@ -10,4 +10,19 @@ class JadwalMengajar extends Model
     /** @use HasFactory<\Database\Factories\JadwalMengajarFactory> */
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
+
+    public function mapel()
+    {
+        return $this->belongsTo(Mapel::class);
+    }
+
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class);
+    }
 }

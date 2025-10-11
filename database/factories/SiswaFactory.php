@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Angkatan;
+use App\Models\Kelas;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +20,7 @@ class SiswaFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama' => $this->faker->name(),
+            // 'nama' => $this->faker->name(),
             'nis' => $this->faker->unique()->numerify('########'),
             'nisn' => fake()->numerify("00##################"),
             'alamat' => fake()->address(),
@@ -28,6 +30,8 @@ class SiswaFactory extends Factory
             'angkatan_id' => Angkatan::inRandomOrder()->first()->id ?? Angkatan::factory(),
             'siswa_tidak_mampu' => $this->faker->boolean(20), // 20% kemungkinan tidak mampu
             'status' => $this->faker->randomElement(['aktif', 'lulus', 'keluar']),
+            'user_id' => User::factory(),
+            'kelas_id' => Kelas::factory(),
         ];
     }
 }

@@ -2,19 +2,28 @@
 
 namespace App\Livewire;
 
+use App\Models\Angkatan;
+use App\Models\Kelas;
+use App\Models\Setting;
 use App\Models\Siswa;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class SiswaCreate extends Component
 {
-    public $title, $guru;
-    public $id;
+    public $title, $angkatan, $kelas;
+    public $id, $user_id;
 
     #[Validate('required')]
-    public $nama = '', $nis, $nisn, $alamat, $no_telp, $jenis_kelamin, $angkatan_id = '', $siswa_tidak_mampu = false, $status = '';
+    public $name = '', $nis, $nisn, $alamat, $no_telp, $jenis_kelamin, $angkatan_id = '', $siswa_tidak_mampu = false, $status = '', $kelas_id, $role = 'siswa', $tanggal_lahir;
+
+    #[Validate('required|email')]
+    public $email = '';
 
     #[On('createModal')]
     public function openCreateModal()
@@ -22,15 +31,19 @@ class SiswaCreate extends Component
         $this->resetValidation();
 
         $this->id = null;
-        $this->nama = '';
+        $this->user_id = null;
+        $this->name = '';
+        $this->email = '';
         $this->nis = '';
+        $this->tanggal_lahir = '';
         $this->nisn = '';
         $this->alamat = '';
         $this->no_telp = '';
-        $this->jenis_kelamin = '';
+        $this->jenis_kelamin = 'L';
         $this->angkatan_id = '';
         $this->siswa_tidak_mampu = false;
         $this->status = '';
+        $this->kelas_id = null;
         $this->title = 'Tambah Siswa';
 
         $this->dispatch('modal-show', name: "tambah-siswa");
@@ -44,8 +57,11 @@ class SiswaCreate extends Component
             $this->resetValidation();
 
             $this->id = $siswa->id;
-            $this->nama = $siswa->nama;
+            $this->user_id = $siswa->user_id;
+            $this->name = $siswa->name;
+            $this->email = $siswa->user->email;
             $this->nis = $siswa->nis;
+            $this->tanggal_lahir = $siswa->tanggal_lahir;
             $this->nisn = $siswa->nisn;
             $this->alamat = $siswa->alamat;
             $this->no_telp = $siswa->no_telp;
@@ -53,17 +69,47 @@ class SiswaCreate extends Component
             $this->angkatan_id = $siswa->angkatan_id;
             $this->siswa_tidak_mampu = $siswa->siswa_tidak_mampu;
             $this->status = $siswa->status;
-            $this->title = "Ubah Siswa $siswa->nama";
+            $this->kelas_id = $siswa->kelas->id;
+            $this->title = "Ubah Siswa $siswa->name";
         }
         $this->dispatch('modal-show', name: "tambah-siswa");
+    }
+
+    public function mount()
+    {
+        $this->angkatan = Angkatan::get();
+        $this->kelas = Kelas::get();
     }
 
     public function save()
     {
         $validated = $this->validate();
+        // dd($validated);
 
         try {
             DB::beginTransaction();
+
+            if ($this->id) {
+                $user = User::where('id', $this->user_id)->first();
+                $user->fill($validated);
+
+                if ($user->isDirty('email')) {
+                    $user->email_verified_at = null;
+                }
+
+                $user->save();
+            } else {
+                $password = Hash::make(Setting::where('key', 'default_siswa_password')->value('value'));
+
+                $user = User::create([
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'password' => $password,
+                    'role' => $this->role,
+                ]);
+                $validated['user_id'] = $user->id;
+            }
+
             Siswa::updateOrCreate(['id' => $this->id], $validated);
             DB::commit();
             $this->dispatch('updateSiswa');

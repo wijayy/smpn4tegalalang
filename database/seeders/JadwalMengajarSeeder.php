@@ -12,6 +12,6 @@ class JadwalMengajarSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        
     }
 }

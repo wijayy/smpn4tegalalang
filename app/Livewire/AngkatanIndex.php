@@ -3,14 +3,25 @@
 namespace App\Livewire;
 
 use App\Models\Angkatan;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class AngkatanIndex extends Component
 {
     public $angkatan;
 
-    public function mount() {
+    #[On('updateAngkatan')]
+    public function updateAngkatan(){
         $this->angkatan = Angkatan::orderByDesc('tahun_selesai')->get();
+
+    }
+
+    public function mount() {
+        $this->updateAngkatan();
+    }
+
+    public function openCreateModal() {
+        $this->dispatch('createModal');
     }
 
 

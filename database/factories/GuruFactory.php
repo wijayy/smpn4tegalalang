@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Mapel;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,12 +19,13 @@ class GuruFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama' => $this->faker->name(),
+            // 'nama' => $this->faker->name(),
             'kode' => fake()->numerify('KD###'),
             'no_pegawai' => $this->faker->optional()->numerify('1975#########'),
             'alamat' => fake()->address(),
             'no_telp'=>fake()->phoneNumber(),
             'mapel_id' => Mapel::inRandomOrder()->first()->id ?? Mapel::factory(),
+            'user_id' => User::inRandomOrder()->first()->id ?? User::factory(),
         ];
     }
 }

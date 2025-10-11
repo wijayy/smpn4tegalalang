@@ -32,7 +32,7 @@ class GuruIndex extends Component
 
     public function mount()
     {
-        $this->guru = Guru::filters(['search' => $this->search])->get();
+        $this->updateGuru();
     }
     public function render()
     {

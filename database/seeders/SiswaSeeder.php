@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\SiswaKelas;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -29,19 +30,17 @@ class SiswaSeeder extends Seeder
                 } else {
                     $angkatan_id = 6;
                 }
+                $user = User::factory()->create([
+                    // 'nama' => fake()->name(),
+                    'email' => "siswa$count@gmail.com",
+                    'role' => 'siswa',
+                ]);
                 // Buat siswa
-                $siswa = Siswa::factory()->create([
-                    'nama' => fake()->name(),
+                $siswa = Siswa::factory()->recycle($user)->create([
                     'nis' => fake()->unique()->numerify('##########'), // 10 digit
                     'jenis_kelamin' => fake()->randomElement(['L', 'P']),
                     'angkatan_id' => $angkatan_id,
-                ]);
-
-                // Masukkan ke tabel siswa_kelas
-                SiswaKelas::create([
-                    'siswa_id' => $siswa->id,
                     'kelas_id' => $kelas->id,
-                    'tahun_ajaran' => '2025/2026',
                 ]);
             }
         }

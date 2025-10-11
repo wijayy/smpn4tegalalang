@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'admin@admin.com',
+            'role'=>'admin',
         ]);
 
         $this->call(AngkatanSeeder::class);
@@ -25,5 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GuruSeeder::class);
         $this->call(KelasSeeder::class);
         $this->call(SiswaSeeder::class);
+        $this->call(SettingSeeder::class);
+        $this->call(PrestasiSiswaSeeder::class);
     }
 }

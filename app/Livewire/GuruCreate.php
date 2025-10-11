@@ -3,20 +3,25 @@
 namespace App\Livewire;
 
 use App\Models\Guru;
-use App\Models\Mapel;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
+use App\Models\Mapel;
+use App\Models\Setting;
+use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
-use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class GuruCreate extends Component
 {
 
-    public $mapels, $users, $title, $id;
+    public $mapels, $users, $title, $id, $user_id;
 
     #[Validate('required')]
-    public $nama, $kode, $alamat, $no_telp;
+    public $kode, $alamat, $no_telp, $name, $role = 'guru';
+
+    #[Validate('required|email')]
+    public $email = '';
 
     #[Validate('nullable')]
     public $no_pegawai = '', $mapel_id;
@@ -28,7 +33,8 @@ class GuruCreate extends Component
         $this->resetValidation();
 
         $this->id = null;
-        $this->nama = '';
+        $this->name = '';
+        $this->email = '';
         $this->kode = '';
         $this->alamat = '';
         $this->no_telp = '';
@@ -49,7 +55,9 @@ class GuruCreate extends Component
             $this->resetValidation();
 
             $this->id = $guru->id;
-            $this->nama = $guru->nama;
+            $this->user_id = $guru->user_id;
+            $this->name = $guru->name;
+            $this->email = $guru->user->email;
             $this->kode = $guru->kode;
             $this->alamat = $guru->alamat;
             $this->no_telp = $guru->no_telp;
@@ -63,15 +71,36 @@ class GuruCreate extends Component
     public function mount()
     {
         $this->mapels = Mapel::get();
-        $this->users = User::where('role', 'guru')->get();
     }
 
     public function save()
     {
-        $validated = $this->validate();
 
         try {
+            $validated = $this->validate();
             DB::beginTransaction();
+
+            if ($this->id) {
+                $user = User::where('id', $this->user_id)->first();
+                $user->fill($validated);
+
+                if ($user->isDirty('email')) {
+                    $user->email_verified_at = null;
+                }
+
+                $user->save();
+            } else {
+                $password = Hash::make(Setting::where('key', 'default_guru_password')->value('value'));
+
+                $user = User::create([
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'password' => $password,
+                    'role' => $this->role,
+                ]);
+                $validated['user_id'] = $user->id;
+            }
+
             Guru::updateOrCreate(['id' => $this->id], $validated);
             DB::commit();
             $this->dispatch('updateGuru');
