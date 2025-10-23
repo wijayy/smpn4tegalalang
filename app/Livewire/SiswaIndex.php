@@ -37,7 +37,6 @@ class SiswaIndex extends Component
         }
     }
 
-
     public function openCreateModal()
     {
         $this->dispatch('createModal');

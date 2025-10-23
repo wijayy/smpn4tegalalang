@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Console\Commands\GenerateJadwal;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,7 +19,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'admin@admin.com',
-            'role'=>'admin',
+            'role' => 'admin',
         ]);
 
         $this->call(AngkatanSeeder::class);
@@ -28,5 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SiswaSeeder::class);
         $this->call(SettingSeeder::class);
         $this->call(PrestasiSiswaSeeder::class);
+
+        // $this->call(GenerateJadwal::class);
     }
 }

@@ -17,7 +17,7 @@ class GenerateJadwal extends Command
     public function handle()
     {
         $hariList = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-        $jamPerHari = 7; // 7 jam pelajaran/hari
+        $jamPerHari = 8; // 7 jam pelajaran/hari
         $kelasList = Kelas::all();
 
         foreach ($kelasList as $kelas) {

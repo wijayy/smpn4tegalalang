@@ -43,7 +43,6 @@ class GuruCreate extends Component
         $this->title = 'Tambah Guru';
 
         $this->dispatch('modal-show', name: "tambah-guru");
-
     }
 
     #[On('editModal')]

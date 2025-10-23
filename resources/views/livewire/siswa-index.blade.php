@@ -12,7 +12,9 @@
             @endforeach
             </flux:select>
         </div>
-        <flux:button wire:click='openCreateModal' size="sm">Tambah Siswa</flux:button>
+        @if (Auth::user()->role == 'admin')
+            <flux:button wire:click='openCreateModal' size="sm">Tambah Siswa</flux:button>
+        @endif
     </div>
     <div class="overflow-x-auto">
         <div class="flex gap-4 min-w-3xl text-xs md:text-sm font-semibold mt-4 py-2">
@@ -22,7 +24,10 @@
             <div class="w-1/5 text-center">Tanggal Lahir</div>
             <div class="w-1/5 text-center">Kelas</div>
             <div class="w-1/5 text-center">Angkatan</div>
-            <div class="w-1/5 text-center">Aksi</div>
+            @if (Auth::user()->role == 'admin')
+                <div class="w-1/5 text-center">Aksi</div>
+            @endif
+
         </div>
         @if ($show)
             <div class="w-full min-h-96 flex justify-center items-center">
@@ -39,21 +44,25 @@
                     <div class="w-1/5 text-center">
                         {{ $item->angkatan->tahun_mulai }}-{{ $item->angkatan->tahun_selesai }}
                     </div>
-                    <div class="flex gap-2 w-1/5 justify-center">
-                        <flux:button size="xs" variant="primary" color="amber"
-                            wire:click='openEditModal({{ $item->id }})'>Ubah</flux:button>
-                        <flux:modal.trigger name='delete-{{ $item->id }}'>
-                            <flux:button size="xs" variant="primary" color="red">Hapus</flux:button>
-                        </flux:modal.trigger>
-                    </div>
+                    @if (Auth::user()->role == 'admin')
+                        <div class="flex gap-2 w-1/5 justify-center">
+                            <flux:button size="xs" variant="primary" color="amber"
+                                wire:click='openEditModal({{ $item->id }})'>Ubah</flux:button>
+                            <flux:modal.trigger name='delete-{{ $item->id }}'>
+                                <flux:button size="xs" variant="primary" color="red">Hapus</flux:button>
+                            </flux:modal.trigger>
+                        </div>
+                    @endif
                 </div>
-                <flux:modal name="delete-{{ $item->id }}">
-                    <div class="mt-4">Yakin ingin menghapus Siswa {{ $item->nama }}?</div>
-                    <div class="flex justify-end">
-                        <flux:button variant='danger' size="sm" wire:click='delete({{ $item->id }})'>Hapus
-                        </flux:button>
-                    </div>
-                </flux:modal>
+                @if (Auth::user()->role == 'admin')
+                    <flux:modal name="delete-{{ $item->id }}">
+                        <div class="mt-4">Yakin ingin menghapus Siswa {{ $item->nama }}?</div>
+                        <div class="flex justify-end">
+                            <flux:button variant='danger' size="sm" wire:click='delete({{ $item->id }})'>Hapus
+                            </flux:button>
+                        </div>
+                    </flux:modal>
+                @endif
             @empty
                 <div class="w-full min-h-96 flex justify-center items-center">
                     Data Siswa Tidak Ditemukan
@@ -61,5 +70,7 @@
             @endforelse
         @endif
     </div>
-    @livewire('siswa-create')
+    @if (Auth::user()->role == 'admin')
+        @livewire('siswa-create')
+    @endif
 </div>

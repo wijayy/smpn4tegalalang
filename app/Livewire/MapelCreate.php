@@ -11,7 +11,9 @@ use Livewire\Component;
 class MapelCreate extends Component
 {
     #[Validate('required')]
-    public $nama = '', $kode = '', $jumlah_jam = '';
+    public $nama = '',  $jumlah_jam = '';
+    #[Validate('nullable')]
+    public $kode = '';
     public $title = 'Tambah Mapel', $id;
 
     #[On('createModal')]
