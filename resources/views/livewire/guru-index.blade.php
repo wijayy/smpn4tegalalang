@@ -22,7 +22,7 @@
                 <div class="w-10">{{ $loop->iteration }}</div>
                 <div class="w-1/7">{{ $item->name }}</div>
                 <div class="w-1/7 text-center">{{ $item->kode }}</div>
-                <div class="w-1/7 text-center">{{ $item->mapel->nama }}</div>
+                <div class="w-1/7 text-center">{{ $item->mapel?->nama }}</div>
                 <div class="w-1/7 text-center">{{ $item->no_pegawai ?? '-' }}</div>
                 <div class="w-1/7 text-center">{{ $item->no_telp }}</div>
                 <div class="w-1/7 text-center">{{ $item->alamat }}</div>
@@ -32,23 +32,22 @@
                             wire:click='openEditModal({{ $item->id }})'>Ubah</flux:button>
                         <flux:modal.trigger name='delete-{{ $item->id }}'>
                             <flux:button size="xs" variant="primary" color="red">Hapus</flux:button>
-                        </flux:modal.trigger>
+                        </flux:modal.trigger></div>
+                @endif
+                @if (Auth::user()->role == 'admin')
+                    <flux:modal name="delete-{{ $item->id }}">
+                        <div class="mt-4">Yakin ingin menghapus Guru {{ $item->nama }}?</div>
+                        <div class="flex justify-end">
+                            <flux:button variant='danger' size="sm" wire:click='delete({{ $item->id }})'>Hapus
+                            </flux:button>
+                        </div>
+                    </flux:modal>
                 @endif
             </div>
-
-            @if (Auth::user()->role == 'admin')
-                <flux:modal name="delete-{{ $item->id }}">
-                    <div class="mt-4">Yakin ingin menghapus Guru {{ $item->nama }}?</div>
-                    <div class="flex justify-end">
-                        <flux:button variant='danger' size="sm" wire:click='delete({{ $item->id }})'>Hapus
-                        </flux:button>
-                    </div>
-                </flux:modal>
-            @endif
         @endforeach
 
         @if (Auth::user()->role == 'admin')
             @livewire('guru-create')
         @endif
-
     </div>
+</div>

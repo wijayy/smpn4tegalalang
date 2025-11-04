@@ -9,6 +9,8 @@ use Livewire\Component;
 class JadwalIndex extends Component
 {
     public $title = 'Jadwal', $jadwal;
+
+
     public $selectedKelasId;
     public $hariList = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 

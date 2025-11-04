@@ -19,12 +19,16 @@ class MapelSeeder extends Seeder
             ['nama' => 'IPA', 'jumlah_jam' => 5, 'mapel_besar' => true],
             ['nama' => 'IPS', 'jumlah_jam' => 5, 'mapel_besar' => true],
             ['nama' => 'Agama', 'jumlah_jam' => 3],
-            ['nama' => 'PPKN', 'jumlah_jam' => 3],
+            ['nama' => 'Pend Pancasila', 'jumlah_jam' => 3],
             ['nama' => 'Bahasa Inggris', 'jumlah_jam' => 3],
             ['nama' => 'Seni Budaya', 'jumlah_jam' => 3],
             ['nama' => 'PJOK', 'jumlah_jam' => 3, 'boleh_senin' => false],
-            ['nama' => 'Prakarya', 'jumlah_jam' => 2],
-            ['nama' => 'Muatan Lokal', 'jumlah_jam' => 2],
+            ['nama' => 'Bahasa Bali', 'jumlah_jam' => 2],
+            ['nama' => 'TIK', 'jumlah_jam' => 2],
+            ['nama' => 'BK', 'jumlah_jam' => 2],
+            ['nama' => 'Upacara Bendera', 'jumlah_jam' => 1],
+            ['nama' => 'GB', 'jumlah_jam' => 1],
+            ['nama' => 'Pembiasaan', 'jumlah_jam' => 3],
         ];
 
         foreach ($mapels as $item) {

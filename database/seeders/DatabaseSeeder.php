@@ -20,15 +20,16 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'admin@admin.com',
             'role' => 'admin',
+            'force_reset_password' => false
         ]);
 
         $this->call(AngkatanSeeder::class);
-        $this->call(MapelSeeder::class);
-        $this->call(GuruSeeder::class);
-        $this->call(KelasSeeder::class);
-        $this->call(SiswaSeeder::class);
+        // $this->call(KelasSeeder::class);
+        // $this->call(MapelSeeder::class);
+        // $this->call(GuruSeeder::class);
+        // $this->call(SiswaSeeder::class);
         $this->call(SettingSeeder::class);
-        $this->call(PrestasiSiswaSeeder::class);
+        // $this->call(PrestasiSiswaSeeder::class);
 
         // $this->call(GenerateJadwal::class);
     }

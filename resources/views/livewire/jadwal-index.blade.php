@@ -3,14 +3,14 @@
         <div class="">
             <flux:select wire:model.live='selectedKelasId'>
                 @foreach ($kelasList as $item)
-                    <flux:select.option value='{{ $item->slug }}'>{{ $item->nama }}</flux:select.option>
+                    <flux:select.option value='{{ $item->id }}'>{{ $item->nama }}</flux:select.option>
                 @endforeach
             </flux:select>
         </div>
         <flux:button href="{{ route('jadwal.create') }}">Ubah Jadwal</flux:button>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         @foreach ($jadwals as $items)
             <div class="rounded p-4 border border-gray-200 shadow">
                 <div class="text-center mb-2 font-semibold text-lg md:text-xl">{{ $items[0]->hari }}</div>

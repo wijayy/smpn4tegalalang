@@ -15,13 +15,12 @@ class KelasSeeder extends Seeder
     public function run(): void
     {
         foreach (range(7, 9) as $tingkat) {
-            foreach (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] as $rombel) {
+            foreach (['A', 'B', 'C', 'D', 'E'] as $rombel) {
                 Kelas::factory()->recycle(Guru::all())->create([
-                    'nama' => "{$tingkat}{$rombel}",
+                    'nama' => "Kelas {$tingkat} {$rombel}",
                     'tingkat' => $tingkat,
                 ]);
             }
-
         }
     }
 }

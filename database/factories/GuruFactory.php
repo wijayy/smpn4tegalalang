@@ -25,7 +25,7 @@ class GuruFactory extends Factory
             'alamat' => fake()->address(),
             'no_telp'=>fake()->phoneNumber(),
             'mapel_id' => Mapel::inRandomOrder()->first()->id ?? Mapel::factory(),
-            'user_id' => User::inRandomOrder()->first()->id ?? User::factory(),
+            'user_id' => User::where('role', 'guru')->inRandomOrder()->first()->id ?? User::factory(),
         ];
     }
 }

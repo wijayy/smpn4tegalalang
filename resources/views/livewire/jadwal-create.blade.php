@@ -36,7 +36,7 @@
                             class="border rounded px-1 py-0.5 w-full">
                             <flux:select.option value="">-- Pilih Mapel --</flux:select.option>
                             @foreach ($mapels as $mapel)
-                                <flux:select.option value="{{ $mapel->id }}">{{ $mapel->kode }} -
+                                <flux:select.option value="{{ $mapel->id }}">
                                     {{ $mapel->nama }}</flux:select.option>
                             @endforeach
                         </flux:select>

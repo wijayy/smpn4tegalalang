@@ -15,23 +15,25 @@
 
         <flux:navlist variant="outline">
             <flux:navlist.group :heading="__('Platform')" class="grid">
-                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
-                    wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                <flux:navlist.item icon="home" :href="route('angkatan.index')" :current="request()->routeIs('angkatan.*')"
+                <flux:navlist.item :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                    {{ __('Dashboard') }}</flux:navlist.item>
+                <flux:navlist.item :href="route('angkatan.index')" :current="request()->routeIs('angkatan.*')"
                     wire:navigate>{{ __('Angkatan') }}</flux:navlist.item>
-                <flux:navlist.item icon="home" :href="route('siswa.index')" :current="request()->routeIs('siswa.index')"
+                <flux:navlist.item :href="route('siswa.index')" :current="request()->routeIs('siswa.index')"
                     wire:navigate>{{ __('Siswa') }}</flux:navlist.item>
-                <flux:navlist.item icon="home" :href="route('guru.index')" :current="request()->routeIs('guru.*')"
-                    wire:navigate>{{ __('Guru') }}</flux:navlist.item>
-                <flux:navlist.item icon="home" :href="route('kelas.index')" :current="request()->routeIs('kelas.index')"
+                <flux:navlist.item :href="route('guru.index')" :current="request()->routeIs('guru.*')" wire:navigate>
+                    {{ __('Guru') }}</flux:navlist.item>
+                <flux:navlist.item :href="route('kelas.index')" :current="request()->routeIs('kelas.index')"
                     wire:navigate>{{ __('Kelas') }}</flux:navlist.item>
-                <flux:navlist.item icon="home" :href="route('mapel.index')" :current="request()->routeIs('mapel.index')"
+                <flux:navlist.item :href="route('mapel.index')" :current="request()->routeIs('mapel.index')"
                     wire:navigate>{{ __('Mata Pelajaran') }}</flux:navlist.item>
-                <flux:navlist.item icon="home" :href="route('jadwal.index')" :current="request()->routeIs('jadwal.index')"
+                <flux:navlist.item :href="route('jadwal.index')" :current="request()->routeIs('jadwal.index')"
                     wire:navigate>{{ __('Jadwal Pelajaran') }}</flux:navlist.item>
-                <flux:navlist.item icon="home" :href="route('prestasi.index')" :current="request()->routeIs('prestasi.index')"
+                <flux:navlist.item :href="route('prestasi.index')" :current="request()->routeIs('prestasi.index')"
                     wire:navigate>{{ __('Prestasi Siswa') }}</flux:navlist.item>
-                <flux:navlist.item icon="settings-2" :href="route('setting.index')" :current="request()->routeIs('setting.index')"
+                <flux:navlist.item :href="route('admin.index')" :current="request()->routeIs('admin.index')"
+                    wire:navigate>{{ __('Admin') }}</flux:navlist.item>
+                <flux:navlist.item :href="route('setting.index')" :current="request()->routeIs('setting.index')"
                     wire:navigate>{{ __('Konfigurasi') }}</flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>

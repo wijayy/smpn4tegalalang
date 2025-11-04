@@ -22,7 +22,7 @@ class JadwalCreate extends Component
     {
         $this->kelasList = Kelas::all();
         $this->mapels = Mapel::all();
-        $this->gurus = Guru::all();
+        $this->gurus = Guru::orderBy('kode')->get();
         $this->selectedKelasId = $this->kelasList->first()?->id;
         $this->loadJadwal();
     }

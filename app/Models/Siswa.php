@@ -60,7 +60,6 @@ class Siswa extends Model
         ];
     }
 
-
     public function scopeFilters($query, array $filters)
     {
         $query->when($filters['kelas'] ?? false, function ($query, $search) {
