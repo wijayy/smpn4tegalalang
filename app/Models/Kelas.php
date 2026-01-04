@@ -27,19 +27,17 @@ class Kelas extends Model
     }
     protected $guarded = ['id'];
 
-    public function wali() {
+    public function wali()
+    {
         return $this->belongsTo(Guru::class, 'guru_id', 'id');
     }
 
-        // Relasi ke tabel pivot
-    public function kelasSiswa()
-    {
-        return $this->hasMany(SiswaKelas::class, 'kelas_id');
-    }
+    // Relasi ke tabel pivot
+
 
     // Relasi many-to-many ke siswa
     public function siswa()
     {
-        return $this->belongsToMany(Siswa::class, 'siswa_kelas', 'kelas_id', 'siswa_id');
+        return $this->hasMany(Siswa::class, 'kelas_id');
     }
 }

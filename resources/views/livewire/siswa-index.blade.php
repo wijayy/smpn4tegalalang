@@ -55,13 +55,13 @@
                         <div class="flex gap-2 w-1/5 justify-center">
                             <flux:button size="xs" variant="primary" color="amber"
                                 wire:click='openEditModal({{ $item->id }})'>Ubah</flux:button>
-                            <flux:modal.trigger name='delete-{{ $item->id }}'>
+                            {{-- <flux:modal.trigger name='delete-{{ $item->id }}'>
                                 <flux:button size="xs" variant="primary" color="red">Hapus</flux:button>
-                            </flux:modal.trigger>
+                            </flux:modal.trigger> --}}
                         </div>
                     @endif
                 </div>
-                @if (Auth::user()->role == 'admin')
+                {{-- @if (Auth::user()->role == 'admin')
                     <flux:modal name="delete-{{ $item->id }}">
                         <div class="mt-4">Yakin ingin menghapus Siswa {{ $item->nama }}?</div>
                         <div class="flex justify-end">
@@ -69,7 +69,7 @@
                             </flux:button>
                         </div>
                     </flux:modal>
-                @endif
+                @endif --}}
             @empty
                 <div class="w-full min-h-96 flex justify-center items-center">
                     Data Siswa Tidak Ditemukan
