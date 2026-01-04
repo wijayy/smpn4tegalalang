@@ -32,7 +32,8 @@
                             wire:click='openEditModal({{ $item->id }})'>Ubah</flux:button>
                         {{-- <flux:modal.trigger name='delete-{{ $item->id }}'>
                             <flux:button size="xs" variant="primary" color="red">Hapus</flux:button>
-                        </flux:modal.trigger></div> --}}
+                        </flux:modal.trigger> --}}
+                    </div>
                 @endif
                 @if (Auth::user()->role == 'admin')
                     <flux:modal name="delete-{{ $item->id }}">
