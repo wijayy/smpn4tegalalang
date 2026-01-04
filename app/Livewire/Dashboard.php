@@ -14,7 +14,7 @@ class Dashboard extends Component
         $this->activeStudents = \App\Models\Siswa::count();
         $this->activeTeachers = \App\Models\Guru::count();
         $this->totalClasses = \App\Models\Kelas::count();
-        $this->totalPrestasi = \App\Models\PrestasiSiswa::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->count();
+        $this->totalPrestasi = \App\Models\PrestasiSiswa::count();
 
         $this->lastPrestasi = \App\Models\PrestasiSiswa::with('siswa')->latest()->take(8)->get();
     }

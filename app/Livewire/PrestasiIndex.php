@@ -37,6 +37,11 @@ class PrestasiIndex extends Component
         $this->dispatch('createModal');
     }
 
+    public function openEditModal($id)
+    {
+        $this->dispatch('editModal', ['id' => $id]);
+    }
+
     public function toogleFilter()
     {
         $this->filter = !$this->filter;

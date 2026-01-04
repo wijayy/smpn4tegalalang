@@ -24,20 +24,29 @@
     <div class="overflow-x-auto mt-4">
         <div class="flex gap-4 text-xs md:text-sm font-semibold py-2 items-center">
             <div class="w-10">#</div>
-            <div class="w-1/5">Nama Siswa</div>
-            <div class="w-1/5 text-center">Nama Prestasi</div>
-            <div class="w-1/5 text-center">Tingkat Prestasi</div>
-            <div class="w-1/5 text-center">Tahun</div>
-            <div class="w-1/5 text-center">Keterangan</div>
+            <div class="w-1/6">Nama Siswa</div>
+            <div class="w-1/6 text-center">Nama Prestasi</div>
+            <div class="w-1/6 text-center">Tingkat Prestasi</div>
+            <div class="w-1/6 text-center">Tahun</div>
+            <div class="w-1/6 text-center">Keterangan</div>
+            @if (Auth::user()->role == 'admin')
+                <div class="w-1/6 text-center">Aksi</div>
+            @endif
         </div>
         @foreach ($prestasis as $item)
             <div class="flex gap-4 text-xs md:text-sm py-1 items-center">
                 <div class="w-10">{{ $loop->iteration }}</div>
-                <div class="w-1/5">{{ $item->siswa->name }}</div>
-                <div class="w-1/5 text-center">{{ $item->nama_prestasi }}</div>
-                <div class="w-1/5 text-center">{{ $item->tingkat }}</div>
-                <div class="w-1/5 text-center">{{ $item->tahun }}</div>
-                <div class="w-1/5 text-center">{{ $item->keterangan }}</div>
+                <div class="w-1/6">{{ $item->siswa->name }}</div>
+                <div class="w-1/6 text-center">{{ $item->nama_prestasi }}</div>
+                <div class="w-1/6 text-center">{{ $item->tingkat }}</div>
+                <div class="w-1/6 text-center">{{ $item->tahun }}</div>
+                <div class="w-1/6 text-center">{{ $item->keterangan }}</div>
+                @if (Auth::user()->role == 'admin')
+                    <div class="w-1/6 text-center f;ex justify-center">
+                        <flux:button size="xs" variant="primary" color="amber"
+                            wire:click='openEditModal({{ $item->id }})'>Ubah</flux:button>
+                    </div>
+                @endif
             </div>
         @endforeach
     </div>

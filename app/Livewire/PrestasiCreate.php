@@ -13,7 +13,7 @@ class PrestasiCreate extends Component
 {
 
     #[Validate('required')]
-    public $siswa_id = '', $nama_prestasi = '', $tingkat = '', $tahun = '';
+    public $siswa_id = '', $nama_prestasi = '', $tingkat = '', $tahun = '', $id;
 
     #[Validate('nullable')]
     public $keterangan = '';
@@ -26,6 +26,7 @@ class PrestasiCreate extends Component
     {
         $this->resetValidation();
 
+        $this->id = null;
         $this->siswa_id = '';
         $this->nama_prestasi = '';
         $this->tingkat = '';
@@ -33,6 +34,20 @@ class PrestasiCreate extends Component
         $this->keterangan = '';
         $this->title = 'Tambah Prestasi Siswa';
 
+        $this->dispatch('modal-show', name: "tambah-prestasi");
+    }
+
+    #[On('editModal')]
+    public function openEditModal($id){
+
+        $prestasi = PrestasiSiswa::where('id', $id)->first();
+        $this->id = $id;
+        $this->siswa_id = $prestasi->siswa_id;
+        $this->nama_prestasi = $prestasi->nama_prestasi;
+        $this->tingkat = $prestasi->tingkat;;
+        $this->tahun = $prestasi->tahun;
+        $this->keterangan = $prestasi->keterangan;
+        $this->title = 'Edit Prestasi Siswa';
         $this->dispatch('modal-show', name: "tambah-prestasi");
     }
 
@@ -48,7 +63,7 @@ class PrestasiCreate extends Component
             // dd($false);
             $validated = $this->validate();
             DB::beginTransaction();
-            PrestasiSiswa::create($validated);
+            PrestasiSiswa::updateOrCreate(['id' => $this->id],$validated);
             DB::commit();
             $this->dispatch('updatePrestasi');
             session()->flash('success', "Data berhasil disimpan");
