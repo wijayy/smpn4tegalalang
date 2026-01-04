@@ -1,6 +1,7 @@
 <div class="">
     <flux:modal class="min-w-2xl!" name='tambah-siswa'>
         <div class="mt-4 font-semibold">{{ $title }}</div>
+        <div class="mt-4 font-semibold">{{ $tanggal_lahir }}</div>
 
         <form wire:submit='save' class="space-y-4">
             <flux:separator text="Informasi Akun">

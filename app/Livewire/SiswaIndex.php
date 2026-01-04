@@ -11,12 +11,23 @@ use Livewire\Component;
 class SiswaIndex extends Component
 {
     public $show = false;
+
     #[Url(except: '')]
-    public $search = '', $kelas = '';
+    public $search = '', $kelas = '', $tanggal_lahir = '';
 
     public $kelass;
 
-    public function updated($search, $kelas)
+    public function updatedSearch()
+    {
+        $this->updateSiswa();
+    }
+
+    public function updatedKelas()
+    {
+        $this->updateSiswa();
+    }
+
+    public function updatedTanggalLahir()
     {
         $this->updateSiswa();
     }
@@ -28,13 +39,10 @@ class SiswaIndex extends Component
     #[On('updateSiswa')]
     public function updateSiswa()
     {
-        if (($this->search == '') && ($this->kelas == '')) {
-            $this->siswa = [];
-            $this->show = true;
-        } else {
-            $this->show = false;
-            $this->siswa = Siswa::filters(['search' => $this->search, 'kelas' => $this->kelas])->get();
+        if (($this->search == '') && ($this->kelas == '') && ($this->tanggal_lahir == '')) {
+            $this->kelas = $this->kelass->first()->nama;
         }
+        $this->siswa = Siswa::filters(['search' => $this->search, 'kelas' => $this->kelas, 'tanggal_lahir' => $this->tanggal_lahir])->get();
     }
 
     public function openCreateModal()
@@ -47,8 +55,12 @@ class SiswaIndex extends Component
     }
     public function mount()
     {
-        $this->updateSiswa();
+
         $this->kelass = Kelas::get();
+
+        // $this->kelas = $this->kelas == "" ? $this->kelass->first()->nama : $this->kelas;
+        $this->updateSiswa();
+
 
 
         // dd($this->siswa);
@@ -69,8 +81,6 @@ class SiswaIndex extends Component
 
     public function render()
     {
-
-
         return view('livewire.siswa-index')->layout('components.layouts.app', ['title' => "Data Siswa"]);
     }
 }

@@ -45,7 +45,7 @@ class SiswaImport implements ToCollection, WithHeadingRow
                 'kelas_id' => $kelas->id,
                 'siswa_tidak_mampu' => $row['siswa_tidak_mampu'],
                 'status' => 'aktif',
-                'alamat' => $row['alamat'],
+                'alamat' => $row['alamat'] + ', ' + $row['Dusun'] + ', ' + $row['Kelurahan'] + ', ' + $row['Kecamatan'] + ', ' + $row['Kode Pos'],
                 'no_telp' => $row['hp'],
             ]);
         }

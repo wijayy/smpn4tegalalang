@@ -1,19 +1,26 @@
 <div>
-    <div class="flex justify-between gap-4">
+    <div class="flex justify-between flex-wrap md:flex-nowrap gap-4">
         <div class="w-full md:w-1/2">
             <flux:input wire:model.live='search' size="sm" placeholder="Cari Siswa"></flux:input>
         </div>
-        <div class="w-full md:w-1/4">
+        <div class="w-full md:w-1/6">
             <flux:select wire:model.live='kelas' size="sm">
-                <flux:select.option value="">-- Pilih Kelas --
-            </flux:select>
-            @foreach ($kelass as $item)
-                <flux:select.option value="{{ $item->nama }}">{{ $item->nama }}</flux:select>
-            @endforeach
+                <flux:select.option value="">-- Pilih Kelas -- </flux:select.option>
+
+                @foreach ($kelass as $item)
+                    <flux:select.option value="{{ $item->nama }}">{{ $item->nama }}</flux:select.option>
+                @endforeach
             </flux:select>
         </div>
+        <div class="w-full md:w-1/6">
+            <flux:input wire:model.live='tanggal_lahir' placeholder="Tanggal Lahir" size="sm" type="date">
+            </flux:input>
+        </div>
         @if (Auth::user()->role == 'admin')
-            <flux:button wire:click='openCreateModal' size="sm">Tambah Siswa</flux:button>
+            <div class="w-full md:w-1/6">
+                <flux:button wire:click='openCreateModal' size="sm">Tambah Siswa</flux:button>
+                <flux:button href="{{ route('siswa.import') }}" size="sm">Tambah Siswa Bulk</flux:button>
+            </div>
         @endif
     </div>
     <div class="overflow-x-auto">

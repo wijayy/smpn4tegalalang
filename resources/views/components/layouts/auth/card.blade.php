@@ -6,7 +6,7 @@
 </head>
 
 <body class="min-h-screen  antialiased">
-    <div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10 bg-center bg-no-repeat bg-cover" style="background-image: url({{ asset('asset/login.jpg') }})">
+    <div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10 bg-center bg-no-repeat bg-cover" style="background-image: url({{ asset('asset/login.jpeg') }})">
         <div class="flex w-full max-w-md flex-col gap-6">
             <div class="flex flex-col gap-6">
                 <div

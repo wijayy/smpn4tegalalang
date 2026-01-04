@@ -68,17 +68,15 @@ class Siswa extends Model
             });
         });
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->whereHas('user', function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%');
+            return $query->where(function ($q) use ($search) {
+                $q->whereHas('user', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                })->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('nisn', 'like', '%' . $search . '%');
             });
         });
-        $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->orWhere('nis', 'like', '%' . $search . '%')
-                ->orWhere('nisn', 'like', '%' . $search . '%');
+        $query->when($filters['tanggal_lahir'] ?? false, function ($query, $search) {
+            return $query->whereDate('tanggal_lahir', $search);
         });
-
-
     }
-
-
 }

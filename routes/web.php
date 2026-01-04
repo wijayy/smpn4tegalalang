@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified', 'reset_password', 'admin'])->group(functi
     Volt::route('admin', 'admin-index')->name('admin.index');
     Volt::route('import/admin', 'import.admin')->name('admin.import');
     Volt::route('import/guru', 'import.guru')->name('guru.import');
-    Volt::route('import/siswa', 'import.siswa')->name('siswa.import');
+    Volt::route('siswa/import', 'import.siswa')->name('siswa.import');
 });
 
 require __DIR__ . '/auth.php';

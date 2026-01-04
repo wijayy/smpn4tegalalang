@@ -7,6 +7,7 @@ use App\Models\Kelas;
 use App\Models\Setting;
 use App\Models\Siswa;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Locked;
@@ -53,6 +54,7 @@ class SiswaCreate extends Component
     public function openEditModal($id)
     {
         $siswa = Siswa::where('id', $id)->first();
+        // dd($siswa);
         if ($siswa) {
             $this->resetValidation();
 
@@ -61,7 +63,9 @@ class SiswaCreate extends Component
             $this->name = $siswa->name;
             $this->email = $siswa->user->email;
             $this->nis = $siswa->nis;
-            $this->tanggal_lahir = $siswa->tanggal_lahir;
+
+            $this->tanggal_lahir = Carbon::parse($siswa->tanggal_lahir)->format('Y-m-d');
+            // dd($this->tanggal_lahir);
             $this->nisn = $siswa->nisn;
             $this->alamat = $siswa->alamat;
             $this->no_telp = $siswa->no_telp;
